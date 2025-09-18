@@ -99,7 +99,7 @@ for epoch in range(wandb.config["epochs"]):
         val_pred = model(X_test)
         val_loss = loss_fn(val_pred, y_test).item()
         val_probs = torch.sigmoid(val_pred)
-        threshold = 0.5
+        threshold = 0.3
         val_bin = (val_probs > threshold).float()
 
         precision = precision_score(y_test.cpu(), val_bin.cpu(), average='samples', zero_division=0)
