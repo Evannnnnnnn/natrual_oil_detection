@@ -3,3 +3,7 @@ test_sample/
 .venv/
 *.json
 .claude/
+wandb/
+*.pth
+.DS_Store
+__pycache__/
