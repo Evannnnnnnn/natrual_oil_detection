@@ -47,6 +47,10 @@ y_binary = (y > 1e-5).astype(np.float32)
 X_train, X_test, y_train, y_test = train_test_split(X, y_binary, test_size=0.2)
 
 
+np.save('data/X_test_input.npy', X_test)
+np.save('data/y_test_key_output.npy', y_test)
+
+
 # Convert to PyTorch tensors
 X_train = torch.tensor(X_train, dtype=torch.float32).to(device)
 X_test = torch.tensor(X_test, dtype=torch.float32).to(device)
@@ -99,7 +103,7 @@ for epoch in range(wandb.config["epochs"]):
         val_pred = model(X_test)
         val_loss = loss_fn(val_pred, y_test).item()
         val_probs = torch.sigmoid(val_pred)
-        threshold = 0.3
+        threshold = 0.1
         val_bin = (val_probs > threshold).float()
 
         precision = precision_score(y_test.cpu(), val_bin.cpu(), average='samples', zero_division=0)
